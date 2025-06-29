@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Moon, Sun, Calendar, Heart, Users, Target, ArrowRight, Mail, Instagram, Twitter, Menu, X, BookOpen, Coffee, Sparkles, Flower, Flower2 } from 'lucide-react'
+import Image from 'next/image'
 
 export default function Home() {
   const [isDark, setIsDark] = useState(false)
@@ -56,26 +57,26 @@ export default function Home() {
     { top: 95, left: 40 }, { top: 5, left: 85 }
   ]
 
-  const teamMembers = [
-    {
-      name: "Priya Sharma",
-      role: "Founder & Lead Facilitator",
-      bio: "Mental health advocate with 8+ years in community building and emotional wellness",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&h=300&fit=crop&crop=face"
-    },
-    {
-      name: "Rahul Mehta",
-      role: "Co-Founder & Program Director",
-      bio: "Mindfulness coach passionate about creating safe spaces for self-reflection",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face"
-    },
-    {
-      name: "Anisha Patel",
-      role: "Community Manager",
-      bio: "Psychology graduate fostering authentic connections and meaningful conversations",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face"
-    }
-  ]
+  const teamData = {
+    image: "/image/team.jpg",
+    members: [
+      {
+        name: "Priya Sharma",
+        role: "Founder & Lead Facilitator",
+        bio: "Mental health advocate with 8+ years in community building and emotional wellness"
+      },
+      {
+        name: "Rahul Mehta",
+        role: "Co-Founder & Program Director",
+        bio: "Mindfulness coach passionate about creating safe spaces for self-reflection"
+      },
+      {
+        name: "Anisha Patel",
+        role: "Community Manager",
+        bio: "Psychology graduate fostering authentic connections and meaningful conversations"
+      }
+    ]
+  }
 
   const cohorts = [
     {
@@ -291,9 +292,11 @@ export default function Home() {
               className="flex items-center space-x-3"
             >
               <div className={`p-1 rounded-full ${isDark ? 'bg-gray-700/50' : 'bg-slate-200'}`}>
-                <img 
+                <Image 
                   src="/image/logo.png" 
                   alt="Me to Dairy Logo" 
+                  width={40}
+                  height={40}
                   className="w-10 h-10 object-contain"
                 />
               </div>
@@ -535,7 +538,7 @@ export default function Home() {
               <div className={`h-px w-20 ${isDark ? 'bg-amber-400/30' : 'bg-slate-400/40'}`}></div>
             </div>
             <p className={`text-lg md:text-xl leading-relaxed max-w-4xl mx-auto font-body ${isDark ? 'text-amber-50' : 'text-slate-700'}`}>
-              Me to Dairy is more than just a Sunday gathering—it's a sanctuary for the soul. 
+              Me to Dairy is more than just a Sunday gathering—it&apos;s a sanctuary for the soul. 
               Every week, we create a safe space where individuals come together to explore 
               their inner landscapes through guided reflection, meaningful dialogue, and 
               authentic storytelling.
@@ -627,8 +630,8 @@ export default function Home() {
               </div>
               <p className={`text-lg md:text-xl leading-relaxed mb-6 font-body ${isDark ? 'text-amber-50' : 'text-slate-700'}`}>
                 We envision a world where emotional literacy is as fundamental as reading and writing. 
-                Through Me to Dairy, we're building a global community of emotionally aware individuals 
-                who can navigate life's complexities with grace, empathy, and authentic self-expression.
+                Through Me to Dairy, we&apos;re building a global community of emotionally aware individuals 
+                who can navigate life&apos;s complexities with grace, empathy, and authentic self-expression.
               </p>
               <div className="space-y-4">
                 {[
@@ -665,7 +668,7 @@ export default function Home() {
                   <h3 className={`text-xl font-semibold font-serif ${isDark ? 'text-amber-100' : 'text-slate-800'}`}>Our Mission</h3>
                 </div>
                 <p className={`${isDark ? 'text-amber-50' : 'text-slate-600'} leading-relaxed font-body`}>
-                  To provide a weekly sanctuary where individuals can pause from life's rush, 
+                  To provide a weekly sanctuary where individuals can pause from life&apos;s rush, 
                   reflect deeply on their emotional experiences, and connect authentically 
                   with others. We believe that through shared vulnerability and guided 
                   reflection, we can all become more emotionally intelligent and fulfilled human beings.
@@ -695,40 +698,58 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {teamMembers.map((member, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                viewport={{ once: true }}
-                className={`text-center p-8 rounded-2xl transition-all duration-300 hover:scale-105 ${
-                  isDark 
-                    ? 'bg-slate-600/40 hover:bg-slate-600/60 border border-amber-400/25' 
-                    : 'bg-white/85 hover:bg-white shadow-md hover:shadow-lg border border-slate-200/50'
-                }`}
-              >
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Team Image */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className={`p-4 rounded-2xl ${isDark ? 'bg-slate-700/50 border border-amber-400/30' : 'bg-white/90 border border-slate-200/60'} backdrop-blur-sm`}>
+                <Image
+                  src={teamData.image}
+                  alt="Me to Dairy Team - Founders together"
+                  width={500}
+                  height={900}
+                  className="w-full h-full rounded-xl object-cover"
+                />
+                <div className="absolute inset-4 bg-gradient-to-r from-rose-500/10 to-indigo-500/10 rounded-xl" />
+              </div>
+            </motion.div>
+
+            {/* Team Members Info */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="space-y-6"
+            >
+              {teamData.members.map((member, index) => (
                 <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  className="relative mb-6"
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className={`p-6 rounded-xl transition-all duration-300 hover:scale-105 ${
+                    isDark 
+                      ? 'bg-slate-600/40 hover:bg-slate-600/60 border border-amber-400/25' 
+                      : 'bg-white/85 hover:bg-white shadow-md hover:shadow-lg border border-slate-200/50'
+                  }`}
                 >
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-32 h-32 rounded-full mx-auto object-cover border-4 border-amber-400/25"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-r from-rose-500/15 to-indigo-500/15 rounded-full" />
+                  <h3 className="text-xl font-semibold mb-2 font-serif">{member.name}</h3>
+                  <p className={`font-medium mb-3 ${isDark ? 'text-amber-400' : 'text-rose-500'}`}>
+                    {member.role}
+                  </p>
+                  <p className={`${isDark ? 'text-amber-100' : 'text-slate-600'} leading-relaxed font-body text-sm`}>
+                    {member.bio}
+                  </p>
                 </motion.div>
-                <h3 className="text-xl font-semibold mb-2 font-serif">{member.name}</h3>
-                <p className={`font-medium mb-4 ${isDark ? 'text-amber-400' : 'text-rose-500'}`}>
-                  {member.role}
-                </p>
-                <p className={`${isDark ? 'text-amber-100' : 'text-slate-600'} leading-relaxed font-body`}>
-                  {member.bio}
-                </p>
-              </motion.div>
-            ))}
+              ))}
+            </motion.div>
           </div>
         </div>
       </section>
@@ -765,8 +786,8 @@ export default function Home() {
               Our Journey So Far
             </h2>
             <p className={`text-lg md:text-xl leading-relaxed max-w-3xl mx-auto font-body ${isDark ? 'text-amber-100' : 'text-slate-600'}`}>
-              Since our inception, we've facilitated transformative cohorts that have touched 
-              hundreds of lives. Here's a glimpse into our past journeys.
+              Since our inception, we&apos;ve facilitated transformative cohorts that have touched 
+              hundreds of lives. Here&apos;s a glimpse into our past journeys.
             </p>
           </motion.div>
 
@@ -932,9 +953,11 @@ export default function Home() {
             className={`text-center pt-8 border-t ${isDark ? 'border-amber-400/25' : 'border-slate-300'}`}
           >
             <div className="flex items-center justify-center space-x-2 mb-4">
-              <img 
+              <Image 
                 src="/image/logo.png" 
                 alt="Me to Dairy Logo" 
+                width={24}
+                height={24}
                 className="w-6 h-6 object-contain"
               />
               <span className="text-lg font-bold bg-gradient-to-r from-amber-600 to-indigo-600 bg-clip-text text-transparent">
